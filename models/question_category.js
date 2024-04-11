@@ -1,4 +1,5 @@
 "use strict";
+const ERROR_TYPE = require("../helpers/constant");
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class question_category extends Model {
@@ -9,8 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      question_category.hasMany(models.question, {foreignKey: 'question_category_id'})
-      question_category.hasMany(models.log,{foreignKey:'question_category_id'})
+      question_category.hasMany(models.question, {
+        foreignKey: "question_category_id",
+      });
+      question_category.hasMany(models.log, {
+        foreignKey: "question_category_id",
+      });
     }
   }
   question_category.init(
@@ -19,16 +24,24 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: { msg: "Database Violation: Name is required" },
-          notNull: { msg: "Database Violation: Name is required" },
+          notEmpty: {
+            msg: `${ERROR_TYPE.ERROR_TYPE.database} Name is required`,
+          },
+          notNull: {
+            msg: `${ERROR_TYPE.ERROR_TYPE.database} Name is required`,
+          },
         },
       },
       createdBy: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: { msg: "Database Violation: createdBy is required" },
-          notNull: { msg: "Database Violation: createdBy is required" },
+          notEmpty: {
+            msg: `${ERROR_TYPE.ERROR_TYPE.database} createdBy is required`,
+          },
+          notNull: {
+            msg: `${ERROR_TYPE.ERROR_TYPE.database} createdBy is required`,
+          },
         },
       },
       modifiedBy: {
@@ -36,11 +49,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       isDeleted: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         validate: {
-          notEmpty: { msg: "Database Violation: isDeleted is required" },
-          notNull: { msg: "Database Violation: isDeleted is required" },
-          isInt: { msg: "Database Violation: isDeleted must integer" },
+          isInt: {
+            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted must integer`,
+          },
         },
       },
     },
@@ -49,5 +61,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "question_category",
     }
   );
+  question_category.beforeCreate((instance, options) => {
+    instance.isDeleted = 0;
+  });
   return question_category;
 };

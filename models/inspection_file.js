@@ -10,8 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      inspection_file.belongsTo(models.mine_inspection,{foreignKey:'mine_inspection_id'})
-      inspection_file.hasMany(models.log,{foreignKey:'inspection_file_id'})
+      inspection_file.belongsTo(models.mine_inspection, {
+        foreignKey: "mine_inspection_id",
+      });
+      inspection_file.hasMany(models.log, { foreignKey: "inspection_file_id" });
     }
   }
   inspection_file.init(
