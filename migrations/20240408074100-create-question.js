@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      question: {
+      name: {
         type: Sequelize.TEXT,
       },
       question_category_id: {

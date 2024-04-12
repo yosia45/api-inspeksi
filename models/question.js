@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   question.init(
     {
-      question: {
+      name: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
@@ -61,14 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       modifiedBy: DataTypes.STRING,
       isDeleted: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         validate: {
-          notEmpty: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
-          notNull: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
           isInt: {
             msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted must integer`,
           },
@@ -80,5 +73,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "question",
     }
   );
+  question.beforeCreate((instance, options) => {
+    instance.isDeleted = 0;
+  });
   return question;
 };

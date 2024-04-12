@@ -1,3 +1,5 @@
+"use strict";
+
 const { question_category, log, sequelize } = require("../models/index");
 const { Op } = require("sequelize");
 const succesResponseFunction = require("../helpers/succesResponseFunction");
@@ -22,10 +24,10 @@ class QuestionCategoryController {
           [Op.iLike]: `%${name}%`,
         };
       }
-      let category = await question_category.findAll(options);
+      let categories = await question_category.findAll(options);
       res
         .status(200)
-        .json(succesResponseFunction("success", null, { category }));
+        .json(succesResponseFunction("success", null, { categories }));
     } catch (err) {
       next(err);
     }
@@ -34,7 +36,7 @@ class QuestionCategoryController {
     try {
       const { id } = req.params;
       let categoryById = await question_category.findByPk(id);
-      if (!categoryById || categoryById.isDeleted===1) {
+      if (!categoryById || categoryById.isDeleted === 1) {
         throw { name: "CategoryNotFound" };
       }
       res
@@ -83,10 +85,10 @@ class QuestionCategoryController {
     try {
       const { id } = req.params;
       const { name } = req.body;
+      const modifiedBy = "0000045"
       let categoryById = await question_category.findByPk(id);
-      const initalName = categoryById.name;
       if (!categoryById) {
-        throw { name: "CategoryNotFound" };
+        throw { name: "CategoryNotFound" || categoryById.isDeleted === 1 };
       }
       if (!name) {
         throw { name: "NameOfCategoryIsRequired" };
@@ -94,7 +96,7 @@ class QuestionCategoryController {
       await question_category.update(
         {
           name,
-          modifiedBy: "0000045",
+          modifiedBy,
         },
         {
           where: {
@@ -106,9 +108,9 @@ class QuestionCategoryController {
       await log.create(
         {
           eventName: "Editing Data",
-          value: `Changing from ${initalName} to ${name}`,
+          value: `Changing from "${categoryById.name}" to "${name}"`,
           question_category_id: id,
-          createdBy: "0000045",
+          createdBy: modifiedBy,
         },
         { transaction: t }
       );
@@ -128,13 +130,14 @@ class QuestionCategoryController {
     try {
       const { id } = req.params;
       let categoryById = await question_category.findByPk(id);
+      const modifiedBy = "0000045"
       if (!categoryById) {
-        throw { name: "CategoryNotFound" };
+        throw { name: "CategoryNotFound" || categoryById.isDeleted === 1 };
       }
       await question_category.update(
         {
           isDeleted: 1,
-          modifiedBy: "0000045",
+          modifiedBy: modifiedBy,
         },
         {
           where: {
@@ -150,7 +153,7 @@ class QuestionCategoryController {
           eventName: "Deleting Data",
           value: categoryById.name,
           question_category_id: id,
-          createdBy: "0000045",
+          createdBy: modifiedBy,
         },
         {
           transaction: t,

@@ -1,9 +1,11 @@
-const express = require('express')
-const router = express.Router()
-const errorHandler = require('../middlewares/errorHandler')
-const questionCategoryRoute = require('../routes/questionCategory-route')
+const express = require("express");
+const router = express.Router();
+const errorHandler = require("../middlewares/errorHandler");
+const questionCategoryRoute = require("./questionCategory-route");
+const questionRoute = require("./question-route");
 
-router.use("/category", questionCategoryRoute)
-router.use(errorHandler)
+router.use("/categories", questionCategoryRoute);
+router.use("/questions", questionRoute);
+router.use(errorHandler);
 
-module.exports = router
+module.exports = router;
