@@ -25,7 +25,7 @@ const errorHandler = (err, req, res, next) => {
     });
   } else if (err.name === "QuestionCategoryIsRequired") {
     res.status(400).json({
-      message: `${ERROR_TYPE.ERROR_TYPE.server} Category of Question is required`,
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Question Category is required`,
     });
   } else if (err.name === "LocationNotFound") {
     res
@@ -34,6 +34,18 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "LocationNameIsRequired") {
     res.status(400).json({
       message: `${ERROR_TYPE.ERROR_TYPE.server} Location name is required`,
+    });
+  } else if (err.name === "UserNotFound") {
+    res
+      .status(404)
+      .json({ message: `${ERROR_TYPE.ERROR_TYPE.server} User not found` });
+  } else if (err.name === "UserNameIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} User name is required`,
+    });
+  } else if (err.name === "NopegIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Nopeg is required`,
     });
   } else {
     res.status(500).json({ message: "Internal Server Error" });

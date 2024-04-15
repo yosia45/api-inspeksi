@@ -99,7 +99,6 @@ class QuestionController {
       let questionById = await question.findByPk(id, {
         include: [question_category],
       });
-      console.log(questionById.question_category.name);
       if (!questionById || questionById.isDeleted === 1) {
         throw { name: "QuestionNotFound" };
       }

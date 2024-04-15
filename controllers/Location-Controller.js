@@ -1,7 +1,7 @@
 "use strict";
 
 const { location, log, sequelize } = require("../models/index");
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 const succesResponseFunction = require("../helpers/succesResponseFunction");
 
 class LocationController {
