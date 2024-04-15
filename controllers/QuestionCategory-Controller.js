@@ -51,7 +51,7 @@ class QuestionCategoryController {
     try {
       const { name } = req.body;
       if (!name) {
-        throw { name: "NameOfCategoryIsRequired" };
+        throw { name: "CategoryNameIsRequired" };
       }
       const createdCategory = await question_category.create(
         {
@@ -85,13 +85,13 @@ class QuestionCategoryController {
     try {
       const { id } = req.params;
       const { name } = req.body;
-      const modifiedBy = "0000045"
+      const modifiedBy = "0000045";
       let categoryById = await question_category.findByPk(id);
-      if (!categoryById) {
-        throw { name: "CategoryNotFound" || categoryById.isDeleted === 1 };
+      if (!categoryById || categoryById.isDeleted === 1) {
+        throw { name: "CategoryNotFound" };
       }
       if (!name) {
-        throw { name: "NameOfCategoryIsRequired" };
+        throw { name: "CategoryNameIsRequired" };
       }
       await question_category.update(
         {
@@ -130,9 +130,9 @@ class QuestionCategoryController {
     try {
       const { id } = req.params;
       let categoryById = await question_category.findByPk(id);
-      const modifiedBy = "0000045"
-      if (!categoryById) {
-        throw { name: "CategoryNotFound" || categoryById.isDeleted === 1 };
+      const modifiedBy = "0000045";
+      if (!categoryById || categoryById.isDeleted === 1) {
+        throw { name: "CategoryNotFound" };
       }
       await question_category.update(
         {

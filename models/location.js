@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      location.hasMany(models.mine_inspection,{foreignKey:'lokasi_id'})
+      location.hasMany(models.mine_inspection, { foreignKey: "lokasi_id" });
     }
   }
   location.init(
@@ -42,14 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       modifiedBy: DataTypes.STRING,
       isDeleted: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         validate: {
-          notEmpty: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
-          notNull: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
           isInt: {
             msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted must integer`,
           },
@@ -61,5 +54,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "location",
     }
   );
+  location.beforeCreate((instance, options) => {
+    instance.isDeleted = 0;
+  });
   return location;
 };

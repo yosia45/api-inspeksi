@@ -6,7 +6,7 @@ const {
   question_category,
   log,
 } = require("../models/index");
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 const succesResponseFunction = require("../helpers/succesResponseFunction");
 
 class QuestionController {

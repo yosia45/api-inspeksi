@@ -1,3 +1,4 @@
+"use strict";
 const ERROR_TYPE = require("../helpers/constant");
 
 const errorHandler = (err, req, res, next) => {
@@ -10,7 +11,7 @@ const errorHandler = (err, req, res, next) => {
     res
       .status(404)
       .json({ message: `${ERROR_TYPE.ERROR_TYPE.server} Category not found` });
-  } else if (err.name === "NameOfCategoryIsRequired") {
+  } else if (err.name === "CategoryNameIsRequired") {
     res.status(400).json({
       message: `${ERROR_TYPE.ERROR_TYPE.server} Name of Category is required`,
     });
@@ -23,11 +24,17 @@ const errorHandler = (err, req, res, next) => {
       message: `${ERROR_TYPE.ERROR_TYPE.server} Question is required`,
     });
   } else if (err.name === "QuestionCategoryIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Category of Question is required`,
+    });
+  } else if (err.name === "LocationNotFound") {
     res
-      .status(400)
-      .json({
-        message: `${ERROR_TYPE.ERROR_TYPE.server} Category of Question is required`,
-      });
+      .status(404)
+      .json({ message: `${ERROR_TYPE.ERROR_TYPE.server} Location not found` });
+  } else if (err.name === "LocationNameIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Location name is required`,
+    });
   } else {
     res.status(500).json({ message: "Internal Server Error" });
   }
