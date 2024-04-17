@@ -13,7 +13,7 @@ const errorHandler = (err, req, res, next) => {
       .json({ message: `${ERROR_TYPE.ERROR_TYPE.server} Category not found` });
   } else if (err.name === "CategoryNameIsRequired") {
     res.status(400).json({
-      message: `${ERROR_TYPE.ERROR_TYPE.server} Name of Category is required`,
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Category name is required`,
     });
   } else if (err.name === "QuestionNotFound") {
     res
@@ -46,6 +46,30 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "NopegIsRequired") {
     res.status(400).json({
       message: `${ERROR_TYPE.ERROR_TYPE.server} Nopeg is required`,
+    });
+  } else if (err.name === "MineInspectionNotFound") {
+    res.status(404).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Mine Inspection not found`,
+    });
+  } else if (err.name === "LokasiIdIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Lokasi_Id is required`,
+    });
+  } else if (err.name === "GroupIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Group is required`,
+    });
+  } else if (err.name === "ShiftIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Shift is required`,
+    });
+  } else if (err.name === "TimeIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Time is required`,
+    });
+  } else if (err.name === "DateIsRequired") {
+    res.status(400).json({
+      message: `${ERROR_TYPE.ERROR_TYPE.server} Date is required`,
     });
   } else {
     res.status(500).json({ message: "Internal Server Error" });

@@ -26,5 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
   });
+  user.beforeCreate((instance, options) => {
+    instance.isDeleted = 0;
+  });
   return user;
 };
