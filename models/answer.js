@@ -49,7 +49,18 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      answer: DataTypes.STRING,
+      choices: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `${ERROR_TYPE.ERROR_TYPE.database} answer is required`,
+          },
+          notEmpty: {
+            msg: `${ERROR_TYPE.ERROR_TYPE.database} answer is required`,
+          },
+        },
+      },
       addition_information: DataTypes.TEXT,
       createdBy: {
         type: DataTypes.STRING,
@@ -68,12 +79,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notEmpty: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
-          notNull: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
           isInt: {
             msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted must integer`,
           },
@@ -85,5 +90,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "answer",
     }
   );
+  answer.beforeCreate((instance, options) => {
+    instance.isDeleted = 0;
+  });
   return answer;
 };

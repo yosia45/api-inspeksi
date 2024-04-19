@@ -229,7 +229,7 @@ class QuestionController {
       await question.update(
         {
           isDeleted: 1,
-          modefiedBy: modifiedBy,
+          modifiedBy: modifiedBy,
         },
         {
           where: {

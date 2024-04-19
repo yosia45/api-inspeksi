@@ -3,7 +3,8 @@
 const { mine_inspection, log, sequelize } = require("../models/index");
 const { Op } = require("sequelize");
 const succesResponseFunction = require("../helpers/succesResponseFunction");
-const logValueFunction = require("../helpers/logValueFunction")
+const logValueFunction = require("../helpers/logValueFunction");
+const moment = require("moment");
 
 class MineInspectionController {
   static async getAllMineInspection(req, res, next) {
@@ -69,8 +70,9 @@ class MineInspectionController {
       //response if all process is going well
       res
         .status(200)
-        .json(successResponseFunction("success", null, { mineInspectionById }));
+        .json(succesResponseFunction("success", null, { mineInspectionById }));
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
@@ -78,6 +80,18 @@ class MineInspectionController {
     const t = await sequelize.transaction();
     try {
       const { lokasi_id, group, shift, time, date } = req.body;
+
+      const newFormatedTime = new Date(time).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+
+      const newFormatedDate = new Date(date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
 
       //checking if there is 'lokasi_id' data received from frontend side
       if (!lokasi_id) {
@@ -112,12 +126,12 @@ class MineInspectionController {
       //insert new data into mine_inspection table
       let createdMineInspection = await mine_inspection.create(
         {
-          nopeg: "0000035",
+          nopeg: "0000045",
           lokasi_id,
           group,
           shift,
-          time,
-          date,
+          time: newFormatedTime,
+          date: newFormatedDate,
           createdBy: "0000035",
         },
         {
@@ -130,9 +144,9 @@ class MineInspectionController {
       await log.create(
         {
           eventName: "Adding Data",
-          value: `Adding New Mine Inspection data with details: nopeg:${nopeg}, lokasi_id:${lokasi_id}, group:${group}, shift:${shift}, time:${time}, date:${date}`,
+          value: `Adding New Mine Inspection data with details: nopeg:"0000045", lokasi_id:${lokasi_id}, group:${group}, shift:${shift}, time:${time}, date:${date}`,
           mine_inspection_id: createdMineInspection.id,
-          createdBy: "0000035",
+          createdBy: "0000045",
         },
         { transaction: t }
       );
@@ -162,6 +176,18 @@ class MineInspectionController {
 
       //this variable just addition because not up to gitlab yet
       const modifiedBy = "0000045";
+
+      const newFormatedTime = new Date(time).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+
+      const newFormatedDate = new Date(date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
 
       //checking if the data with that id is available or isDeleted is false
       let mineInspectionById = await mine_inspection.findByPk(id);
@@ -221,11 +247,12 @@ class MineInspectionController {
       //edit data with id in mine_inspection table
       await mine_inspection.update(
         {
+          nopeg: "0000045",
           lokasi_id,
           group,
           shift,
-          time,
-          date,
+          time: newFormatedTime,
+          date: newFormatedDate,
         },
         { where: { id: id } },
         { transaction: t }
@@ -256,6 +283,7 @@ class MineInspectionController {
           )
         );
     } catch (err) {
+      console.log(err);
       await t.rollback();
       next(err);
     }

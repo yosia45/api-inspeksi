@@ -104,11 +104,23 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      createdBy: {
+        type: DataTypes.STRING,
+      },
+      modifiedBy: {
+        type: DataTypes.STRING,
+      },
+      isDeleted: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,
       modelName: "mine_inspection",
     }
   );
+  mine_inspection.beforeCreate((instance, options) => {
+    instance.isDeleted = 0;
+  });
   return mine_inspection;
 };

@@ -45,6 +45,7 @@ class UserController {
         .status(200)
         .json(succesResponseFunction("success", null, { userById }));
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
@@ -59,7 +60,7 @@ class UserController {
       }
       let createdUser = await user.create({
         name,
-        nopeg: "0000035",
+        nopeg,
       });
       res.status(201).json(
         succesResponseFunction("success", "New user success to add", {
@@ -73,7 +74,7 @@ class UserController {
   static async editUser(req, res, next) {
     try {
       const { id } = req.params;
-      const { name, nopeg } = req.query;
+      const { name, nopeg } = req.body;
       let userById = await user.findByPk(id);
       if (!userById) {
         throw { name: "UserNotFound" };

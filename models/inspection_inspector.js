@@ -64,12 +64,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notEmpty: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
-          notNull: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted is required`,
-          },
           isInt: {
             msg: `${ERROR_TYPE.ERROR_TYPE.database} isDeleted must integer`,
           },
@@ -81,5 +75,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "inspection_inspector",
     }
   );
+  inspection_inspector.beforeCreate((instance, options) => {
+    instance.isDeleted = 0;
+  });
   return inspection_inspector;
 };

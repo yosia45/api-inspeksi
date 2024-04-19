@@ -62,12 +62,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notEmpty: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} Mine Inspection ID is required`,
-          },
-          notNull: {
-            msg: `${ERROR_TYPE.ERROR_TYPE.database} Mine Inspection ID is required`,
-          },
           isInt: {
             msg: `${ERROR_TYPE.ERROR_TYPE.database} Mine Inspection ID must integer`,
           },

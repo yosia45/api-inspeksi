@@ -28,6 +28,18 @@ List of available endpoints:
 - `POST /inspections`
 - `PUT /inspections/:id`
 - `PATCH /inspections/:id`
+- `POST /inspectionfiles`
+- `GET /logs`
+- `GET /answers`
+- `GET /answers/:id`
+- `POST /answers`
+- `PUT /answers/:id`
+- `PATCH /answers/:id`
+- `GET /inspectors`
+- `GET /inspectors/:id`
+- `POST /inspectors`
+- `PUT /inspectors/:id`
+- `PATCH /inspectors/:id`
 
 &nbsp;
 
@@ -107,13 +119,14 @@ _200 - OK_
     }
 }
 ```
+
 OR
 
 _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Category not found"
+  "message": "Server Violation: Category not found"
 }
 ```
 
@@ -154,7 +167,7 @@ _400 - Bad Request_
 
 ```json
 {
-    "message": "Server Violation: Category name is required"
+  "message": "Server Violation: Category name is required"
 }
 ```
 
@@ -190,8 +203,8 @@ _200 - OK_
 
 ```json
 {
-    "status": "success",
-    "message": "Category editing success",
+  "status": "success",
+  "message": "Category editing success"
 }
 ```
 
@@ -201,7 +214,7 @@ _400 - Bad Request_
 
 ```json
 {
-    "message": "Server Violation: Category name is required"
+  "message": "Server Violation: Category name is required"
 }
 ```
 
@@ -211,7 +224,7 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Category not found"
+  "message": "Server Violation: Category not found"
 }
 ```
 
@@ -239,8 +252,8 @@ _200 - OK_
 
 ```json
 {
-    "status": "success",
-    "message": "Category deleting success",
+  "status": "success",
+  "message": "Category deleting success"
 }
 ```
 
@@ -250,7 +263,7 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Category not found"
+  "message": "Server Violation: Category not found"
 }
 ```
 
@@ -340,7 +353,7 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Question not found"
+  "message": "Server Violation: Question not found"
 }
 ```
 
@@ -383,13 +396,15 @@ _400 - Bad Request_
 
 ```json
 {
-    "message": "Server Violation: Question is required"
+  "message": "Server Violation: Question is required"
 }
 ```
+
 OR
+
 ```json
 {
-    "message": "Server Violation: Question Category is required"
+  "message": "Server Violation: Question Category is required"
 }
 ```
 
@@ -426,8 +441,8 @@ _200 - OK_
 
 ```json
 {
-    "status": "success",
-    "message": "Question editing success"
+  "status": "success",
+  "message": "Question editing success"
 }
 ```
 
@@ -437,13 +452,15 @@ _400 - Bad Request_
 
 ```json
 {
-    "message": "Server Violation: Question is required"
+  "message": "Server Violation: Question is required"
 }
 ```
+
 OR
+
 ```json
 {
-    "message": "Server Violation: Question Category is required"
+  "message": "Server Violation: Question Category is required"
 }
 ```
 
@@ -453,7 +470,7 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Question not found"
+  "message": "Server Violation: Question not found"
 }
 ```
 
@@ -481,8 +498,8 @@ _200 - OK_
 
 ```json
 {
-    "status": "success",
-    "message": "Question deleting success"
+  "status": "success",
+  "message": "Question deleting success"
 }
 ```
 
@@ -492,7 +509,7 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Question not found"
+  "message": "Server Violation: Question not found"
 }
 ```
 
@@ -575,7 +592,7 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Location not found"
+  "message": "Server Violation: Location not found"
 }
 ```
 
@@ -617,7 +634,7 @@ _400 - Bad Request_
 
 ```json
 {
-    "message": "Server Violation: Location name is required"
+  "message": "Server Violation: Location name is required"
 }
 ```
 
@@ -653,8 +670,8 @@ _200 - OK_
 
 ```json
 {
-    "status": "success",
-    "message": "Location editing success"
+  "status": "success",
+  "message": "Location editing success"
 }
 ```
 
@@ -664,7 +681,7 @@ _400 - Bad Request_
 
 ```json
 {
-    "message": "Server Violation: Location name is required"
+  "message": "Server Violation: Location name is required"
 }
 ```
 
@@ -674,7 +691,7 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Location not found"
+  "message": "Server Violation: Location not found"
 }
 ```
 
@@ -702,8 +719,8 @@ _200 - OK_
 
 ```json
 {
-    "status": "success",
-    "message": "Location deleting success"
+  "status": "success",
+  "message": "Location deleting success"
 }
 ```
 
@@ -713,8 +730,501 @@ _404 - Not Found_
 
 ```json
 {
-    "message": "Server Violation: Location not found"
+  "message": "Server Violation: Location not found"
 }
 ```
 
-## 16. 
+## 16. GET /users (Temporary API)
+
+#### Descriptions:
+
+- Get all users from database.
+
+#### Request
+
+- Query (Not Required)
+
+```json
+{
+    "name": String,
+    "nopeg": String,
+}
+```
+
+#### Response
+
+_200 - OK_
+
+- Body:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "users": [
+            {
+                "id": Integer,
+                "name": String,
+                "nopeg": String,
+                "isDeleted": Integer,
+            }
+        ]
+    }
+}
+```
+
+## 17. GET /users/:id (Temporary API)
+
+#### Descriptions:
+
+- Get a user data based on id.
+
+#### Request
+
+- Params
+
+```json
+{
+    "id": Integer,
+}
+```
+
+#### Response
+
+_200 - OK_
+
+- Body:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "userById": {
+            "id": Integer,
+            "name": String,
+            "isDeleted": Integer,
+            "createdAt": Date,
+            "updatedAt": Date
+        }
+    }
+}
+```
+
+_404 - Not Found_
+
+- Body:
+
+```json
+{
+  "message": "Server Violation: User not found"
+}
+```
+
+## 18. POST /users (Temporary API)
+
+#### Descriptions:
+
+- Add a new user.
+
+#### Request
+
+- Body
+
+```json
+{
+    "name": String,
+    "nopeg": String
+}
+```
+
+#### Response
+
+_201 - Created_
+
+- Body
+
+```json
+{
+    "status": "success",
+    "message": "New user success to add",
+    "data":{
+        "createdUser": Integer
+    }
+}
+```
+
+_400 - Bad Request_
+
+- Body
+
+```json
+{
+    "message": "User name is required"
+}
+```
+OR
+```json
+{
+    "message": "Nopeg is required"
+}
+```
+
+## 19. PUT /users/:id (Temporary API)
+
+#### Descriptions:
+
+- Edit an user data based on id.
+
+#### Request
+
+- Params
+
+```json
+{
+    "id": Integer
+}
+```
+
+- Body
+
+```json
+{
+    "name": String,
+    "nopeg": String
+}
+```
+
+#### Response
+
+_200 - OK_
+
+- Body
+
+```json
+{
+    "status": "success",
+    "message": "User editing success"
+}
+```
+
+_400 - Bad Request_
+
+- Body
+
+```json
+{
+    "message": "Server Violation: User name is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Nopeg is required"
+}
+```
+
+_404 - Not Found_
+
+- Body
+
+```json
+{
+    "message": "Server Violation: User not found"
+}
+```
+
+## 20. GET /inspections
+
+#### Descriptions:
+
+- Get all mine-inspections data from database.
+
+#### Request
+
+- Query (Not Required)
+
+```json
+{
+    "lokasi_id": Integer,
+    "group": String,
+    "shift": Integer,
+}
+```
+
+#### Response
+
+_200 - OK_
+
+- Body
+
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": Integer,
+            "nopeg": String,
+            "lokasi_id": Integer,
+            "group": String,
+            "shift": Integer,
+            "time": Time,
+            "date": Date,
+            "isDeleted": Integer
+        }
+    ]
+}
+```
+
+## 21. GET /inspections/:id
+
+#### Descriptions
+
+- Get a data from mine-inspection based on Id.
+
+#### Request
+
+- Params
+
+```json
+{
+    "id": Integer
+}
+```
+
+#### Response
+
+_200 - OK_
+
+- Body
+
+```json
+{
+    "status": "success",
+    "data": {
+        "mineInspectionById": {
+            "id": Integer,
+            "nopeg": String,
+            "lokasi_id": Integer,
+            "group": String,
+            "shift": Integer,
+            "time": Time,
+            "date": Date,
+            "isDeleted": Integer,
+            "createdAt": Date,
+            "updatedAt": Date
+        }
+    }
+}
+```
+
+_404 - Not Found_
+
+- Body
+
+```json
+{
+    "message": "Server Violation: Mine Inspection not found"
+}
+```
+
+## 22. POST /inspections
+
+#### Descriptions:
+
+- Add a new mine-inspection data.
+
+#### Request
+
+- Body
+
+```json
+{
+    "lokasi_id": Integer, 
+    "group": String, 
+    "shift": Integer,
+    "time": String, 
+    "date": String
+}
+```
+
+#### Note
+- Time and date data received sample: Wed Apr 17 2024 11:25:13 GMT+0700 (Western Indonesia Time)
+
+#### Response
+
+_201 - Created_
+
+- Body
+
+```json
+{
+    "status": "success",
+    "message": "New mine inspection success to add",
+    "data":{
+        "createdMineInspection": Integer
+    }
+}
+```
+
+_400 - Bad Request_
+
+- Body
+
+```json
+{
+    "message": "Server Violation: Lokasi_Id is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Group is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Shift is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Time is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Date is required"
+}
+```
+
+## 23. PUT /inspections/:id
+
+#### Descriptions
+
+- Edit a mine-inspection data based on Id.
+
+#### Request
+
+- Params
+
+```json
+{
+    "id": Integer
+}
+```
+
+- Body
+
+```json
+{
+    "lokasi_id": Integer, 
+    "group": String, 
+    "shift": Integer,
+    "time": String, 
+    "date": String
+}
+```
+
+#### Note
+- Time and date data received sample: Wed Apr 17 2024 11:25:13 GMT+0700 (Western Indonesia Time)
+
+#### Response
+
+_200 - OK_
+
+- Body
+
+```json
+{
+    "status": "success",
+    "message": "Mine inspection editing success"
+}
+```
+
+_400 - Bad Request_
+
+- Body
+
+```json
+{
+    "message": "Server Violation: Lokasi_Id is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Group is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Shift is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Time is required"
+}
+```
+OR
+```json
+{
+    "message": "Server Violation: Date is required"
+}
+```
+
+_404 - Not Found_
+
+- Body
+
+```json
+{
+    "message": "Server Violation: Mine Inspection not found"
+}
+```
+
+## 24. PATCH /inspections/:id
+
+#### Descriptions:
+
+- Delete (Soft) a mine-inspection data based on id.
+
+#### Request
+
+- Params
+
+```json
+{
+    "id": Integer
+}
+```
+
+#### Response
+
+_200 - OK_
+
+- Body
+
+```json
+{
+    "status": "success",
+    "message": "Mine Inspection deleting success"
+}
+```
+
+_404 - Not Found_
+
+- Body
+
+```json
+{
+    "message": "Server Violation: Mine Inspection not found"
+}
+```
+
+## 25. POST /inspectionfiles (Temporary API)
