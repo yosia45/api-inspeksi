@@ -17,7 +17,7 @@ router.use("/categories", questionCategoryRoute);
 router.use("/questions", questionRoute);
 router.use("/locations", locationRoute);
 router.use("/users", userRoute);
-router.use("/inspections", mineInspectionRoute);
+router.use("/mineinspections", mineInspectionRoute);
 router.use("/inspectionfiles", inspectionFileRoute);
 router.use("/answers", answerRoute);
 router.use("/inspectors", inspectorRoute);

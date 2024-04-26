@@ -1228,3 +1228,29 @@ _404 - Not Found_
 ```
 
 ## 25. POST /inspectionfiles (Temporary API)
+
+#### Descriptions
+
+- Uploading an file.
+
+#### Request
+
+- Body
+
+```json
+{
+    "mine_inspection_id": Integer,
+    "files": file
+}
+```
+
+#### Response
+
+_201 - Created_
+
+```json
+{
+    "status": "success",
+    "message": "New Inspection File success to add"
+}
+```
