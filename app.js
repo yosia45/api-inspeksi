@@ -1,6 +1,6 @@
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-  }
+// if (process.env.NODE_ENV !== "production") {
+//     require("dotenv").config();
+//   }
   
   const express = require("express");
   const cors = require("cors");
@@ -13,6 +13,9 @@ if (process.env.NODE_ENV !== "production") {
   app.use(express.json());
   app.use(routes);
   
+  console.log(process.env.NODE_ENV)
+  console.log(port)
+
   app.listen(port, () => {
     console.log(`App listening on port ${port}`);
   });
