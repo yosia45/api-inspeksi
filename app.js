@@ -16,7 +16,6 @@
   console.log(process.env.NODE_ENV)
   console.log(port)
   console.log(process.env.DATABASE_DEVELOPMENT_USERNAME)
-  console.log(process.env.DATABASE_DEVELOPMENT_PASSWORD)
 
   app.listen(port, () => {
     console.log(`App listening on port ${port}`);
